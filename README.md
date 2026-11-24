@@ -1,4 +1,7 @@
 # pTrader
+
+[English overview](README.en.md)
+
 #### 一个简单的CTP行情+交易服务
 
 
