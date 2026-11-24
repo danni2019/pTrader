@@ -2,8 +2,14 @@
 
 [English overview](README.en.md)
 
-#### 一个简单的CTP行情+交易服务
+pTrader 是 2022 年的 Python CTP 行情与交易服务。行情进程把更新发布到 Redis，策略通过本地客户端请求独立的交易服务。
 
+```mermaid
+flowchart LR
+    A["CTP market data"] --> B["Publisher"] --> C["Redis"] --> D["Strategy"] --> E["Local order service"]
+```
+
+行情和交易入口位于 [infra/trade/service/ctp](infra/trade/service/ctp/)。`trade.ini` 保留历史 SimNow 配置示例。复现时需自行取得兼容的 CTP SDK 和 SWIG 二进制，账户配置请保存在 Git 之外。
 
 ## 简介
     pTrader本身是从我个人投研框架中剥离出来的一部分，交易框架的封装方案是采用了景色CTP的那套
@@ -29,7 +35,7 @@
     要用起来这套东西还是比较简单，只是有一些前置工作需要完成：
     1. setup.py & install requirements.txt
     2. 请配置一个Redis服务，并将参数填在config.ini中
-    3. 在trade.ini中配置你自己的交易账户信息，里面有一些残留的信息是SIMNOW的，你也可以配置实盘。
+    3. 在独立的本地副本中配置 SimNow 测试账户，避免把账户信息提交到 Git。
     4. 分别运行infra/trade/service/ctp/下的market_data 和 trader_server
     5. 现在就可以在你的策略中引用trader_client内的方法，构建你自己的交易逻辑了。
 
@@ -51,6 +57,3 @@
     也希望能对更多的人有启发。
     
     目前在逐渐从python转向c++，希望未来有更好的东西拿出来和大家分享。
-
-## 联系作者
-

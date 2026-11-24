@@ -1,0 +1,5 @@
+# Locally built caches and separately supplied CTP binaries.
+__pycache__/
+*.py[cod]
+infra/trade/api/resource/_ctp/*.dll
+infra/trade/api/resource/_ctp/*.pyd
